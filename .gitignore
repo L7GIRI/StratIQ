@@ -9,5 +9,5 @@ htmlcov/
 dist/
 
 # data is never committed (yfinance terms limit redistribution)
-data/
+/data/
 *.parquet
