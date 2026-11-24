@@ -21,3 +21,15 @@ These are the rules the engine follows. Tests in `tests/unit/test_engine_*.py` a
 - Flags from `session_end_flags` use the next bar's timestamp, so a gap in data can end a
   session early. This is schedule information, not price information.
 - Fixed position size and market orders only (limit orders and ATR sizing come on Day 10).
+## Added on Day 10
+12. Limit entries: long limit = signal close - offset, short limit = signal close + offset.
+    The order is valid for the next bar only and is re-quoted each bar while the target
+    position holds.
+13. If the bar opens at or through the limit, the fill is at the open (better than the limit).
+    Otherwise it fills at the limit if the low (long) or high (short) reaches it.
+14. Limit fills pay no slippage or spread (resting order) but pay commission. Exits are market
+    orders with full costs.
+15. On the entry bar of a limit fill the stop is checked against the whole bar's range. If the
+    bar's range reaches the stop, the stop is assumed to hit after the fill (conservative).
+16. Risk sizing: units = equity at signal * risk_pct / stop distance, capped by
+    equity * max_leverage / entry price. It requires a stop distance.

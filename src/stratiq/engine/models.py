@@ -1,6 +1,7 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import asdict, dataclass
+from typing import Literal
 
 import pandas as pd
 
@@ -12,9 +13,13 @@ class BacktestConfig:
     initial_cash: float = 100_000.0
     units: float = 1.0
     commission_per_unit: float = 0.0
-    spread: float = 0.0  # full spread; half is paid on each fill
-    slippage: float = 0.0  # adverse price move per fill
+    spread: float = 0.0  # full spread; half is paid on each market fill
+    slippage: float = 0.0  # adverse price move per market fill
     target_r: float | None = None  # take-profit as a multiple of the stop distance
+    entry_mode: Literal["market", "limit"] = "market"
+    limit_offset: float = 0.0  # limit distance from the signal bar's close, in price units
+    risk_pct: float | None = None  # fraction of equity risked per trade (needs a stop)
+    max_leverage: float = 5.0  # cap: units * price <= equity * max_leverage
 
     def __post_init__(self) -> None:
         if self.initial_cash <= 0:
@@ -25,6 +30,17 @@ class BacktestConfig:
             raise ValueError("costs must be >= 0")
         if self.target_r is not None and self.target_r <= 0:
             raise ValueError("target_r must be > 0")
+        if self.entry_mode not in ("market", "limit"):
+            raise ValueError("entry_mode must be 'market' or 'limit'")
+        if self.limit_offset < 0:
+            raise ValueError("limit_offset must be >= 0")
+        if self.risk_pct is not None and not 0 < self.risk_pct <= 1:
+            raise ValueError("risk_pct must be in (0, 1]")
+        if self.max_leverage <= 0:
+            raise ValueError("max_leverage must be > 0")
+
+    def to_dict(self) -> dict:
+        return asdict(self)
 
 
 @dataclass(frozen=True)

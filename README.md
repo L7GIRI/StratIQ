@@ -11,3 +11,4 @@ Research and educational LLM-assisted backtester for gold. Not a trading system.
 - Day 7: metrics (return, drawdown, Sharpe, Sortino, Calmar, win rate, profit factor, expectancy).
 - Day 8: strategy DSL (Pydantic models, semantic validator, approval gate).
 - Day 9: compiler (spec to engine inputs) with reference-implementation tests.
+- Day 10: limit orders (gap-through rule) and ATR-risk position sizing.
