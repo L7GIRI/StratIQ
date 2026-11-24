@@ -30,3 +30,10 @@ def in_session(index: pd.DatetimeIndex, name: str) -> pd.Series:
 def label_sessions(index: pd.DatetimeIndex) -> pd.DataFrame:
     """One boolean column per session. Sessions may overlap."""
     return pd.concat([in_session(index, n) for n in SESSIONS], axis=1)
+
+
+def session_end_flags(index: pd.DatetimeIndex, name: str) -> pd.Series:
+    """True on the last in-session bar before the session ends (or before a data gap)."""
+    ins = in_session(index, name)
+    nxt = ins.shift(-1, fill_value=False)
+    return (ins & ~nxt).rename(f"{name}_end")
