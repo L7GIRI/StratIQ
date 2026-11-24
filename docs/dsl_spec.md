@@ -21,3 +21,14 @@ See `tests/fixtures/ema_cross.json` for a complete example.
 
 The validator rejects unknown indicator types, undefined references, out-of-range numbers,
 conflicting conditions, unsupported order types and missing required fields.
+## Compilation rules
+- `compile_spec` refuses a spec without `approved_at`.
+- An entry rule is an event on bar t. The target position is +1 on a long event and -1 on a
+  short event, held until the opposite event, a stop, a target or a session end. If both
+  events fire on the same bar, nothing changes.
+- With a `session`, entries are allowed only inside the allowed sessions. With
+  `flat_at_session_end`, the last in-session bar is blocked for entries and the target
+  position resets to 0 there.
+- Entries are blocked while the stop distance is NaN (indicator warm-up).
+- Costs are not part of the spec. They come from the base `BacktestConfig`.
+- There are no exit rules yet: a long-only spec holds until a stop, target or session end.
