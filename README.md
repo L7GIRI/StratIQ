@@ -9,3 +9,4 @@ Research and educational LLM-assisted backtester for gold. Not a trading system.
 - Day 5: stop/target (gap and both-hit rules), costs, session-flat close.
 - Day 6: validation tests (lookahead truncation, invariants, hypothesis properties).
 - Day 7: metrics (return, drawdown, Sharpe, Sortino, Calmar, win rate, profit factor, expectancy).
+- Day 8: strategy DSL (Pydantic models, semantic validator, approval gate).

@@ -1,0 +1,17 @@
+{
+  "name": "EMA_Cross_20_50",
+  "instrument": "XAUUSD",
+  "instrument_type": "spot_fx",
+  "timeframe": "1h",
+  "indicators": [
+    {"id": "ema_fast", "type": "EMA", "params": {"length": 20}},
+    {"id": "ema_slow", "type": "EMA", "params": {"length": 50}},
+    {"id": "atr14", "type": "ATR", "params": {"length": 14}}
+  ],
+  "entry_long": {"all": [{"op": "CROSS_ABOVE", "left": "ema_fast", "right": "ema_slow"}]},
+  "entry_short": {"all": [{"op": "CROSS_BELOW", "left": "ema_fast", "right": "ema_slow"}]},
+  "stop_loss": {"type": "ATR", "indicator": "atr14", "multiplier": 1.5},
+  "take_profit": {"type": "R_MULTIPLE", "value": 2.0},
+  "sizing": {"type": "FIXED_UNITS", "value": 1},
+  "session": {"allowed": ["NEW_YORK"], "flat_at_session_end": true}
+}
