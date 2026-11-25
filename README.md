@@ -31,4 +31,4 @@ See `results/baselines.json`. Costs are assumptions (spread 0.30, slippage 0.20,
 Execution rules: `docs/execution_assumptions.md`. DSL: `docs/dsl_spec.md`.
 
 ## Progress
-Days 1-12 done: scaffold, data, indicators, engine, validation tests, metrics, DSL, compiler, limit/risk, baselines.
+Days 1-12 done: scaffold, data, indicators, engine, validation tests, metrics, DSL, compiler, limit/risk, baselines.- Day 13: causal regimes (vol, trend) and bootstrap CIs per regime.
