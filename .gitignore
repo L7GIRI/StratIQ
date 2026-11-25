@@ -13,3 +13,5 @@ dist/
 *.parquet
 results/*.html
 results/*_trades.csv
+
+results/approved/

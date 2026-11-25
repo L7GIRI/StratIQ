@@ -46,3 +46,9 @@ conflicting conditions, unsupported order types and missing required fields.
 - Condition ops: CROSS_ABOVE, CROSS_BELOW, GT, LT, GTE, LTE
 - Sessions: ASIA, LONDON, NEW_YORK
 - Entry orders: MARKET, LIMIT. Sizing: FIXED_UNITS, RISK_PCT
+
+## NL to DSL (Day 16)
+The model returns a simplified draft (`stratiq.llm.nl2dsl.DraftStrategy`), never the full spec.
+Python converts it, `validate_spec` checks it, validation errors are fed back for up to 2
+repairs, and failure raises `NL2DSLError`. `approved_at` is not part of the draft, so the model
+cannot approve anything. Model output is parsed as JSON only and never executed.

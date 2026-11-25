@@ -34,3 +34,5 @@ Execution rules: `docs/execution_assumptions.md`. DSL: `docs/dsl_spec.md`.
 Days 1-12 done: scaffold, data, indicators, engine, validation tests, metrics, DSL, compiler, limit/risk, baselines.- Day 13: causal regimes (vol, trend) and bootstrap CIs per regime.
 - Day 14: walk-forward (train-only optimisation, stitched out-of-sample equity).
 - Day 15: Monte Carlo (shuffle/resample) and parameter sensitivity heatmap.
+- Day 16: Ollama client and NL to DSL (draft schema, validation, repair loop).
+- Day 17: NL to DSL evaluation set (20 prompts), scoring, approval gate, no-code-execution test.
