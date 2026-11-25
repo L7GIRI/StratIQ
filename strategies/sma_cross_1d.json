@@ -1,0 +1,15 @@
+{
+  "name": "SMA_Cross_50_200_1d",
+  "instrument": "GC=F",
+  "instrument_type": "futures_continuous",
+  "timeframe": "1d",
+  "indicators": [
+    {"id": "sma_fast", "type": "SMA", "params": {"length": 50}},
+    {"id": "sma_slow", "type": "SMA", "params": {"length": 200}},
+    {"id": "atr14", "type": "ATR", "params": {"length": 14}}
+  ],
+  "entry_long": {"all": [{"op": "CROSS_ABOVE", "left": "sma_fast", "right": "sma_slow"}]},
+  "entry_short": {"all": [{"op": "CROSS_BELOW", "left": "sma_fast", "right": "sma_slow"}]},
+  "stop_loss": {"type": "ATR", "indicator": "atr14", "multiplier": 3.0},
+  "sizing": {"type": "RISK_PCT", "value": 1.0}
+}

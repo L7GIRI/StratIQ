@@ -1,0 +1,15 @@
+{
+  "name": "RSI_Reversion_14_1h",
+  "instrument": "GC=F",
+  "instrument_type": "futures_continuous",
+  "timeframe": "1h",
+  "indicators": [
+    {"id": "rsi14", "type": "RSI", "params": {"length": 14}},
+    {"id": "atr14", "type": "ATR", "params": {"length": 14}}
+  ],
+  "entry_long": {"all": [{"op": "LT", "left": "rsi14", "right": 30}]},
+  "entry_short": {"all": [{"op": "GT", "left": "rsi14", "right": 70}]},
+  "stop_loss": {"type": "ATR", "indicator": "atr14", "multiplier": 2.0},
+  "take_profit": {"type": "R_MULTIPLE", "value": 1.5},
+  "sizing": {"type": "RISK_PCT", "value": 1.0}
+}

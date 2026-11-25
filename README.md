@@ -1,14 +1,34 @@
 # StratIQ
 
-Research and educational LLM-assisted backtester for gold. Not a trading system.
+Research and educational LLM-assisted backtester for gold. **Not a trading system.**
+A natural-language idea becomes a validated JSON strategy (never code), is approved by a
+human, and runs on a small backtesting engine with explicit execution rules.
+
+## What exists so far
+- Data: GC=F hourly and daily via yfinance, cleaned, hashed, stored as Parquet (data is never committed).
+- Indicators: SMA, EMA, RSI, ATR, daily-reset VWAP. Sessions are DST-safe.
+- Engine: next-open fills, stop/target (stop first when both hit), costs, limit orders, risk sizing.
+- Tests: golden hand-computed trades, a lookahead truncation test with a negative control,
+  accounting invariants, hypothesis property tests.
+- DSL: Pydantic models, semantic validator, approval gate, compiler checked against
+  independent reference implementations.
+- Metrics: return, drawdown, Sharpe, Sortino, Calmar, win rate, profit factor, expectancy.
+
+## Results
+See `results/baselines.json`. Costs are assumptions (spread 0.30, slippage 0.20, commission
+0.02 per ounce), not measured values. Results go here after they are produced:
+
+| Strategy | Trades | Return | Max DD | Sharpe |
+|---|---|---|---|---|
+| (fill from `python scripts/run_backtest.py`) | | | | |
+
+## Limitations
+- Free data: about 2.4 years of hourly bars; GC=F is a continuous futures series with roll artifacts.
+- Market and limit orders only, one position at a time, fixed cost assumptions.
+- Baselines are examples, not recommendations.
+
+## Rules
+Execution rules: `docs/execution_assumptions.md`. DSL: `docs/dsl_spec.md`.
 
 ## Progress
-- Day 1: scaffold, CI, data-source check.- Day 2: cleaning, Parquet store with hash, synthetic generator.
-- Day 3: sessions (DST-safe) and indicators (SMA, EMA, RSI, ATR, VWAP) with hand-computed tests.
-- Day 4: engine v1 (next-open fills, long/short, equity curve, trade log).
-- Day 5: stop/target (gap and both-hit rules), costs, session-flat close.
-- Day 6: validation tests (lookahead truncation, invariants, hypothesis properties).
-- Day 7: metrics (return, drawdown, Sharpe, Sortino, Calmar, win rate, profit factor, expectancy).
-- Day 8: strategy DSL (Pydantic models, semantic validator, approval gate).
-- Day 9: compiler (spec to engine inputs) with reference-implementation tests.
-- Day 10: limit orders (gap-through rule) and ATR-risk position sizing.
+Days 1-12 done: scaffold, data, indicators, engine, validation tests, metrics, DSL, compiler, limit/risk, baselines.

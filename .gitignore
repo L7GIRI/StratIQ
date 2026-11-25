@@ -11,3 +11,5 @@ dist/
 # data is never committed (yfinance terms limit redistribution)
 /data/
 *.parquet
+results/*.html
+results/*_trades.csv

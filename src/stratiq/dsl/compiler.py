@@ -132,7 +132,15 @@ def compile_spec(
 
     base = base_config or BacktestConfig()
     target_r = spec.take_profit.value if spec.take_profit is not None else None
-    config = replace(base, units=float(spec.sizing.value), target_r=target_r)
+    updates: dict = {"target_r": target_r}
+    if spec.sizing.type == "FIXED_UNITS":
+        updates["units"] = float(spec.sizing.value)
+    else:
+        updates["risk_pct"] = float(spec.sizing.value) / 100.0
+    if spec.entry_order == "LIMIT":
+        updates["entry_mode"] = "limit"
+        updates["limit_offset"] = float(spec.limit_offset)
+    config = replace(base, **updates)
     return CompiledStrategy(
         pd.Series(signals, index=df.index, name="signal"), stop, session_end, config, inds
     )

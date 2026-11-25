@@ -56,7 +56,7 @@ class TakeProfit(Strict):
 
 
 class Sizing(Strict):
-    type: Literal["FIXED_UNITS"]
+    type: Literal["FIXED_UNITS", "RISK_PCT"]
     value: float = Field(gt=0, le=1000)
 
 
@@ -70,7 +70,8 @@ class StrategySpec(Strict):
     instrument: Literal["XAUUSD", "GC=F", "GLD"]
     instrument_type: Literal["spot_fx", "futures_continuous", "etf"]
     timeframe: Literal["1h", "1d"]
-    entry_order: Literal["MARKET"] = "MARKET"
+    entry_order: Literal["MARKET", "LIMIT"] = "MARKET"
+    limit_offset: float | None = Field(default=None, ge=0, le=1000)
     indicators: list[Indicator] = Field(default_factory=list, max_length=12)
     entry_long: ConditionGroup | None = None
     entry_short: ConditionGroup | None = None

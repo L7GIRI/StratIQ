@@ -13,6 +13,7 @@ dependencies = [
     "pyarrow",
     "yfinance",
     "pydantic>=2",
+    "plotly",
 ]
 
 [project.optional-dependencies]

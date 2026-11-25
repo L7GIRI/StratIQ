@@ -48,7 +48,7 @@ def conflicting_cross(d):
 
 
 def limit_order(d):
-    d["entry_order"] = "LIMIT"
+    d["entry_order"] = "STOP"
 
 
 def missing_sizing(d):

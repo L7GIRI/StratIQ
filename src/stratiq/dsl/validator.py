@@ -127,6 +127,15 @@ def semantic_errors(spec: StrategySpec) -> list[str]:
 
     if spec.session is not None and spec.timeframe != "1h":
         errors.append("session: requires timeframe '1h'")
+    if spec.entry_order == "LIMIT" and spec.limit_offset is None:
+        errors.append("limit_offset: required when entry_order is LIMIT")
+    if spec.entry_order == "MARKET" and spec.limit_offset is not None:
+        errors.append("limit_offset: only allowed when entry_order is LIMIT")
+    if spec.sizing.type == "RISK_PCT":
+        if spec.stop_loss is None:
+            errors.append("sizing: RISK_PCT requires stop_loss")
+        if spec.sizing.value > 5:
+            errors.append("sizing.value: RISK_PCT must be at most 5 (percent of equity)")
     expected = INSTRUMENT_TYPES[spec.instrument]
     if spec.instrument_type != expected:
         errors.append(f"instrument_type: {spec.instrument} must be {expected}")

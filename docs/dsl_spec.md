@@ -32,3 +32,17 @@ conflicting conditions, unsupported order types and missing required fields.
 - Entries are blocked while the stop distance is NaN (indicator warm-up).
 - Costs are not part of the spec. They come from the base `BacktestConfig`.
 - There are no exit rules yet: a long-only spec holds until a stop, target or session end.
+
+## Added on Day 11
+- `entry_order`: `MARKET` or `LIMIT`. `LIMIT` requires `limit_offset` (price units from the
+  signal bar's close). `MARKET` forbids it.
+- `sizing`: `FIXED_UNITS` (ounces) or `RISK_PCT` (percent of equity risked per trade, at most 5,
+  requires `stop_loss`).
+- Baseline specs live in `strategies/`. Opening-range breakout is not expressible yet because
+  the DSL has no opening-range indicator.
+
+## Vocabulary (kept in sync with the code by tests/unit/test_docs_sync.py)
+- Indicator types: SMA, EMA, RSI, ATR, VWAP
+- Condition ops: CROSS_ABOVE, CROSS_BELOW, GT, LT, GTE, LTE
+- Sessions: ASIA, LONDON, NEW_YORK
+- Entry orders: MARKET, LIMIT. Sizing: FIXED_UNITS, RISK_PCT
