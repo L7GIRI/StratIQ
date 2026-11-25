@@ -33,3 +33,4 @@ Execution rules: `docs/execution_assumptions.md`. DSL: `docs/dsl_spec.md`.
 ## Progress
 Days 1-12 done: scaffold, data, indicators, engine, validation tests, metrics, DSL, compiler, limit/risk, baselines.- Day 13: causal regimes (vol, trend) and bootstrap CIs per regime.
 - Day 14: walk-forward (train-only optimisation, stitched out-of-sample equity).
+- Day 15: Monte Carlo (shuffle/resample) and parameter sensitivity heatmap.
